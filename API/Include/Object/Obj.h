@@ -4,6 +4,8 @@
 #include "../Ref.h"
 #include "../Scene/Layer.h"
 
+#define PI 3.141592f
+
 class CObj:
 	public CRef
 {

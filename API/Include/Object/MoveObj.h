@@ -13,13 +13,16 @@ protected:
 private:
 	float		m_fAngle;
 	float		m_fSpeed;
+	float		m_fAngleSpeed;
 
 public:
 	void SetAngle(float fAngle) { m_fAngle = fAngle; }
 	void SetSpeed(float fSpeed) { m_fSpeed = fSpeed; }
+	void SetAngleSpeed(float fAngleSpeed) { m_fAngleSpeed = fAngleSpeed; }
 
 	float GetAngle() { return m_fAngle; }
 	float GetSpeed() { return m_fSpeed; }
+	float GetAngleSpeed() { return m_fAngleSpeed; }
 
 public:
 	void Move(float x, float y);
@@ -32,8 +35,9 @@ public:
 	void MoveYFromSpeed(float fDeltaTime, MOVE_DIR eDir);
 	void MoveY(float y);
 	void MoveY(float y, float fDeltaTime);
-	void MoveAngle(float fSpeed);
-	void MoveAngle(float fSpeed, float fDeltaTime);
+	void MoveAngle();
+	void MoveAngle(float fDeltaTime);
+	void Rotation(float fDeltaTime, MOVE_DIR eDir);
 
 public:
 	virtual bool Init() = 0;

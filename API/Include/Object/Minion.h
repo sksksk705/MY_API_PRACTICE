@@ -14,6 +14,9 @@ private:
 
 private:
 	MOVE_DIR		m_eDir;
+	float			m_fFireRate;
+	float			m_fFireTime;
+
 
 public:
 	virtual bool Init();

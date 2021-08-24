@@ -1,6 +1,7 @@
 #include "IngameScene.h"
 #include "../Object/Player.h"
 #include "../Object/Minion.h"
+#include "../Object/Bullet.h"
 #include "Layer.h"
 
 
@@ -22,6 +23,7 @@ bool CIngameScene::Init()
 	CPlayer* pPlayer = CObj::CreateObj<CPlayer>("Player", pLayer);
 
 	CMinion* pMinion = CObj::CreateObj<CMinion>("Minion", pLayer);
+
 
 	SAFE_RELEASE(pPlayer);
 	SAFE_RELEASE(pMinion);
