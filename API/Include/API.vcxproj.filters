@@ -40,6 +40,9 @@
     <Filter Include="03.  Object\01. MoveObj\02.Monster">
       <UniqueIdentifier>{d02156ca-b45b-49a5-af93-1f0c5d57ab5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.  Object\03. Bullet">
+      <UniqueIdentifier>{f35a28ae-21d9-47a5-8f5b-52d8600c8e80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,7 +82,10 @@
       <Filter>03.  Object\01. MoveObj\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="Object\Minion.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>03.  Object\01. MoveObj\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Bullet.cpp">
+      <Filter>03.  Object\03. Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +138,10 @@
       <Filter>03.  Object\01. MoveObj\01. Player</Filter>
     </ClInclude>
     <ClInclude Include="Object\Minion.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03.  Object\01. MoveObj\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Bullet.h">
+      <Filter>03.  Object\03. Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

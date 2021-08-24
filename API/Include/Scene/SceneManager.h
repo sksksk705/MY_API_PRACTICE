@@ -14,6 +14,8 @@ public:
 	void Collision(float fDeltaTime);
 	void Render(HDC hDc,float fDeltaTime);
 
+	CScene* GetScene() const { return m_pScene; }
+
 
 	template<typename T>
 	T* CreateScene(SCENE_CREATE sc)
