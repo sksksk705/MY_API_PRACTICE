@@ -1,4 +1,7 @@
 #include "Bullet.h"
+#include "../Resources/Texture.h"
+#include "../Collider/ColliderRect.h"
+#include "../Collider/ColliderSphere.h"
 
 CBullet::CBullet():
  	m_fDist(0.f),
@@ -20,6 +23,17 @@ CBullet::~CBullet()
 bool CBullet::Init()
 {
 	SetSpeed(500.f);
+	SetPivot(0.5f, 0.5f);
+	SetTexture("Bullet", L"bullet.bmp");
+
+	m_pTexture->SetColorKey(74, 107, 99);
+
+	CColliderSphere* pSphere = AddCollider<CColliderSphere>("BulletBody");
+
+	pSphere->SetShpere(POSITION(0.f,0.f),5);
+
+	SAFE_RELEASE(pSphere);
+
 	return true;
 }
 
@@ -51,11 +65,17 @@ void CBullet::Collision(float fDeltaTime)
 void CBullet::Render(HDC hDC, float fDeltaTime)
 {
 	CMoveObj::Render(hDC, fDeltaTime);
-	Ellipse(hDC, m_tPos.x, m_tPos.y, m_tPos.x + m_tSize.x, m_tPos.y + m_tSize.y);
 
 }
 
 CBullet* CBullet::Clone()
 {
 	return new CBullet(*this);
+}
+
+void CBullet::Hit(CCollider* pSrc, CCollider* pDest, float fDeltaTime)
+{
+	if (pSrc->GetTag() == pDest->GetTag())
+		return;
+	Die();
 }

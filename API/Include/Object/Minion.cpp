@@ -1,5 +1,9 @@
 #include "Minion.h"
 #include "../Core.h"
+#include "StaticObj.h"
+#include "Bullet.h"
+#include "../Collider/Collider.h"
+#include "../Collider/ColliderRect.h"
 
 CMinion::CMinion() :
 	m_fFireTime(0.f),
@@ -22,11 +26,22 @@ CMinion::~CMinion()
 
 bool CMinion::Init()
 {
-	SetPos(800.f, 100.f);
+	SetPos(800, 100.f);
 	SetSize(100.f, 100.f);
 	SetSpeed(300.f);
+	SetPivot(0.5f, 0.5f);
+
+	SetTexture("Minion", L"Minion.bmp");
 
 	m_eDir = MD_FRONT;
+
+	CColliderRect* pRC = AddCollider<CColliderRect>("Minion");
+
+	pRC->SetRect(-50.f, -50.f, 50.f, 50.f);
+
+	pRC->AddCollisionFunction(CS_ENTER, this, &CMinion::CollisionBullet);
+
+	SAFE_RELEASE(pRC);
 
 	return true;
 }
@@ -73,7 +88,6 @@ void CMinion::Collision(float fDeltaTime)
 void CMinion::Render(HDC hDC, float fDeltaTime)
 {
 	CMoveObj::Render(hDC, fDeltaTime);
-	Rectangle(hDC, m_tPos.x, m_tPos.y, m_tPos.x + m_tSize.x, m_tPos.y + m_tSize.y);
 }
 
 CMinion* CMinion::Clone()
@@ -81,14 +95,22 @@ CMinion* CMinion::Clone()
 	return new CMinion(*this);
 }
 
+void CMinion::CollisionBullet(CCollider* pSrc, CCollider* pDest, float fDeltaTime)
+{
+	//MessageBox(NULL, L"충돌", L"충돌", MB_OK);
+}
+
 void CMinion::Fire()
 {
 	CObj* pBullet = CObj::CreateCloneObj("Bullet", "MinionBullet", m_pLayer);
 
+	
+	pBullet->AddCollisionFunction("BulletBody", CS_ENTER, (CBullet*)pBullet, &CBullet::Hit);
 	((CMoveObj*)pBullet)->SetAngle(PI);
 
-	pBullet->SetPos(m_tPos.x - pBullet->GetSize().x, 
-		(m_tPos.y + m_tPos.y + m_tSize.y) / 2.f - pBullet->GetSize().y / 2.f);
+	float x = GetLeft() - (pBullet->GetSize().x  * (1.f - pBullet->GetPivot().x));
+	float y = GetCenter().y;
+	pBullet->SetPos(x,y);
 
 	SAFE_RELEASE(pBullet);
 }

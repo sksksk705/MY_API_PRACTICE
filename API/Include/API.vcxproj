@@ -146,7 +146,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collider\Collider.cpp" />
+    <ClCompile Include="Collider\ColliderManager.cpp" />
+    <ClCompile Include="Collider\ColliderRect.cpp" />
+    <ClCompile Include="Collider\ColliderSphere.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Core\Camera.cpp" />
+    <ClCompile Include="Core\Input.cpp" />
+    <ClCompile Include="Core\Math.cpp" />
+    <ClCompile Include="Core\PathManager.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Bullet.cpp" />
@@ -154,15 +162,26 @@
     <ClCompile Include="Object\MoveObj.cpp" />
     <ClCompile Include="Object\Obj.cpp" />
     <ClCompile Include="Object\Player.cpp" />
+    <ClCompile Include="Object\Stage.cpp" />
     <ClCompile Include="Object\StaticObj.cpp" />
     <ClCompile Include="Ref.cpp" />
+    <ClCompile Include="Resources\ResourcesManager.cpp" />
+    <ClCompile Include="Resources\Texture.cpp" />
     <ClCompile Include="Scene\IngameScene.cpp" />
     <ClCompile Include="Scene\Layer.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collider\Collider.h" />
+    <ClInclude Include="Collider\ColliderManager.h" />
+    <ClInclude Include="Collider\ColliderRect.h" />
+    <ClInclude Include="Collider\ColliderSphere.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Core\Camera.h" />
+    <ClInclude Include="Core\Input.h" />
+    <ClInclude Include="Core\Math.h" />
+    <ClInclude Include="Core\PathManager.h" />
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Flags.h" />
     <ClInclude Include="Game.h" />
@@ -172,9 +191,12 @@
     <ClInclude Include="Object\MoveObj.h" />
     <ClInclude Include="Object\Obj.h" />
     <ClInclude Include="Object\Player.h" />
+    <ClInclude Include="Object\Stage.h" />
     <ClInclude Include="Object\StaticObj.h" />
     <ClInclude Include="Ref.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resources\ResourcesManager.h" />
+    <ClInclude Include="Resources\Texture.h" />
     <ClInclude Include="Scene\IngameScene.h" />
     <ClInclude Include="Scene\Layer.h" />
     <ClInclude Include="Scene\Scene.h" />

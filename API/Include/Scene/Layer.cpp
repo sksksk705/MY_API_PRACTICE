@@ -1,6 +1,6 @@
 #include "Layer.h"
 #include "../Object/Obj.h"
-
+#include "../Collider/ColliderManager.h"
 CLayer::CLayer():
 	m_iZOrder(0),
 	m_strTag(""),
@@ -46,8 +46,8 @@ void CLayer::Input(float fDeltaTime)
 			++iter;
 			continue;
 		}
+		
 		(*iter)->Input(fDeltaTime);
-
 		if (!(*iter)->GetLife())
 		{
 			CObj::EraseObj(*iter);
@@ -129,7 +129,7 @@ void CLayer::Collision(float fDeltaTime)
 			++iter;
 			continue;
 		}
-		(*iter)->Collision(fDeltaTime);
+
 
 		if (!(*iter)->GetLife())
 		{
@@ -139,7 +139,11 @@ void CLayer::Collision(float fDeltaTime)
 			iterEnd = m_ObjList.end();
 		}
 		else
+		{
+			GET_SINGLE(CColliderManager)->AddObject(*iter);
 			++iter;
+		}
+
 	}
 }
 

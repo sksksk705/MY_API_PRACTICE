@@ -1,6 +1,12 @@
 #include "Core.h"
 #include "Scene/SceneManager.h"
 #include "Core/Timer.h"
+#include "Core/PathManager.h"
+#include "Core/Camera.h"
+#include "Core/Input.h"
+#include "Collider/ColliderManager.h"
+#include "Resources/ResourcesManager.h"
+#include "Resources/Texture.h"
 
 CCore* CCore::m_pInst = NULL;
 bool CCore::m_bLoop = true;
@@ -13,8 +19,16 @@ CCore::CCore()
 
 CCore::~CCore()
 {
-	DESTROY_SINGLE(CTimer);
 	DESTROY_SINGLE(CSceneManager);
+	DESTROY_SINGLE(CCamera);
+	DESTROY_SINGLE(CResourcesManager);
+	DESTROY_SINGLE(CPathManager);
+	DESTROY_SINGLE(CTimer);
+	DESTROY_SINGLE(CInput);
+	DESTROY_SINGLE(CColliderManager);
+
+
+	ReleaseDC(m_hWnd, m_hDC);
 }
 
 bool CCore::Init(HINSTANCE hInst)
@@ -35,9 +49,24 @@ bool CCore::Init(HINSTANCE hInst)
 	if (!GET_SINGLE(CTimer)->Init())
 		return false;
 
+	if (!GET_SINGLE(CInput)->Init(m_hWnd))
+		return false;
+
+	if (!GET_SINGLE(CPathManager)->Init())
+		return false;
+
+	if (!GET_SINGLE(CResourcesManager)->Init(hInst,m_hDC))
+		return false;
+
+	if (!GET_SINGLE(CCamera)->Init(POSITION(0.f, 0.f), m_tRS, RESOLUTION(2400, 1351)))
+		return false;
+
 	if (!GET_SINGLE(CSceneManager)->Init())
 		return false;
 
+
+
+	
 	return true;
 }
 
@@ -108,11 +137,14 @@ void CCore::Logic()
 void CCore::Input(float fDeltaTime)
 {
 	GET_SINGLE(CSceneManager)->Input(fDeltaTime);
+	GET_SINGLE(CCamera)->Input(fDeltaTime);
 }
 
 int CCore::Update(float fDeltaTime)
 {
 	GET_SINGLE(CSceneManager)->Update(fDeltaTime);
+	GET_SINGLE(CCamera)->Update(fDeltaTime);
+	GET_SINGLE(CInput)->Update(fDeltaTime);
 	return 0;
 }
 
@@ -125,11 +157,20 @@ int CCore::LateUpdate(float fDeltaTime)
 void CCore::Collision(float fDeltaTime)
 {
 	GET_SINGLE(CSceneManager)->Collision(fDeltaTime);
+	GET_SINGLE(CColliderManager)->Collision(fDeltaTime);
 }
 
 void CCore::Render(float fDeltaTime)
 {
-	GET_SINGLE(CSceneManager)->Render(m_hDC, fDeltaTime);
+	CTexture* pBackBuffer = GET_SINGLE(CResourcesManager)->GetBackBuffer();
+
+	Rectangle(pBackBuffer->GetDC(), 0, 0, 1280, 720);
+
+	GET_SINGLE(CSceneManager)->Render(pBackBuffer->GetDC(), fDeltaTime);
+
+	BitBlt(m_hDC, 0, 0, m_tRS.iW, m_tRS.iH, pBackBuffer->GetDC(), 0, 0, SRCCOPY);
+
+	SAFE_RELEASE(pBackBuffer);
 }
 
 LRESULT CCore::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

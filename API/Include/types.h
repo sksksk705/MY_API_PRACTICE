@@ -4,6 +4,16 @@ typedef struct _tagResolution
 {
 	unsigned int	iW;
 	unsigned int	iH;
+
+	_tagResolution() :
+		iW(0),
+		iH(0)
+	{}
+
+	_tagResolution(int x, int y) :
+		iW(x),
+		iH(y)
+	{}
 }RESOLUTION, *PRESOLUTION;
 
 typedef struct _tagPosition
@@ -93,8 +103,8 @@ typedef struct _tagPosition
 	_tagPosition operator-(const _tagPosition pos)	const
 	{
 		_tagPosition tPos;
-		tPos.x = pos.x - x;
-		tPos.y = pos.y - y;
+		tPos.x = x-pos.x  ;
+		tPos.y = y-pos.y  ;
 
 		return tPos;
 	}
@@ -102,8 +112,8 @@ typedef struct _tagPosition
 	_tagPosition operator-(const POINT& pos)	const
 	{
 		_tagPosition tPos;
-		tPos.x = pos.x - x;
-		tPos.y = pos.y - y;
+		tPos.x = x - pos.x;
+		tPos.y = y - pos.y;
 
 		return tPos;
 	}
@@ -126,6 +136,12 @@ typedef struct _tagPosition
 		return tPos;
 	}
 
+
+	void operator -= (const _tagPosition pos)
+	{
+		x -= pos.x;
+		y -= pos.y;
+	}
 
 	//=========================== *
 	_tagPosition operator*(const _tagPosition pos)	const
@@ -209,3 +225,32 @@ typedef struct _tagPosition
 	}
 
 }POSITION, *PPOSITION, _SIZE, *_PSIZE;
+
+typedef struct _tagRectangle
+{
+	float l;
+	float t;
+	float r;
+	float b;
+
+	_tagRectangle() :
+		l(0.f),
+		t(0.f),
+		r(0.f),
+		b(0.f)
+	{}
+
+}RECTANGLE, *PRECTANGLE;
+
+
+typedef struct _tagSphere
+{
+	POSITION tCenter;
+	float fRadius;
+
+	_tagSphere() :
+		tCenter(0.f, 0.f),
+		fRadius(0.f)
+	{}
+
+}SPHERE,*PSPHERE;

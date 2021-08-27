@@ -43,6 +43,27 @@
     <Filter Include="03.  Object\03. Bullet">
       <UniqueIdentifier>{f35a28ae-21d9-47a5-8f5b-52d8600c8e80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Core\02. Path">
+      <UniqueIdentifier>{4a0f20ea-d17a-4e2e-a921-930335fd3e9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.  Object\02. StaticObj\01. Stage">
+      <UniqueIdentifier>{9638c008-5721-40a8-a658-b459a81a78da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\03. Camera">
+      <UniqueIdentifier>{633b6c9c-d763-4628-bac0-3fa68487b3e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\04. Input">
+      <UniqueIdentifier>{9cf67b44-cad3-46c7-abeb-0a668c535fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Collider">
+      <UniqueIdentifier>{01d6207c-f8be-4a8e-82aa-fca2b3672cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.  Object\04. Resources">
+      <UniqueIdentifier>{03b46311-7918-48b3-9965-45244d133dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\05. Math">
+      <UniqueIdentifier>{247ae3cb-1f49-4a8b-8396-9075037cece4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +107,39 @@
     </ClCompile>
     <ClCompile Include="Object\Bullet.cpp">
       <Filter>03.  Object\03. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PathManager.cpp">
+      <Filter>01. Core\02. Path</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\Texture.cpp">
+      <Filter>03.  Object\04. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\ResourcesManager.cpp">
+      <Filter>03.  Object\04. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Stage.cpp">
+      <Filter>03.  Object\02. StaticObj\01. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>01. Core\03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input.cpp">
+      <Filter>01. Core\04. Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderRect.cpp">
+      <Filter>05. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderManager.cpp">
+      <Filter>05. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\Collider.cpp">
+      <Filter>05. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Math.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderSphere.cpp">
+      <Filter>05. Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +196,39 @@
     </ClInclude>
     <ClInclude Include="Object\Bullet.h">
       <Filter>03.  Object\03. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PathManager.h">
+      <Filter>01. Core\02. Path</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Texture.h">
+      <Filter>03.  Object\04. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\ResourcesManager.h">
+      <Filter>03.  Object\04. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Stage.h">
+      <Filter>03.  Object\02. StaticObj\01. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>01. Core\03. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input.h">
+      <Filter>01. Core\04. Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderRect.h">
+      <Filter>05. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderManager.h">
+      <Filter>05. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\Collider.h">
+      <Filter>05. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderSphere.h">
+      <Filter>05. Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

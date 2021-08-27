@@ -1,4 +1,9 @@
 #include "Player.h"
+#include "../Core/Input.h"
+#include "../Object/Bullet.h"
+#include "../Collider/ColliderRect.h"
+#include "../Collider/Collider.h"
+#include "../Core/Camera.h"
 
 CPlayer::CPlayer()
 {
@@ -16,9 +21,23 @@ CPlayer::~CPlayer()
 
 bool CPlayer::Init()
 {
-    SetPos(100.f, 100.f);
+    SetPos(50.f , 50.f);
     SetSize(100.f, 100.f);
     SetSpeed(400.f);
+    SetPivot(0.5f, 0.5f);
+
+    m_iHP = 100;
+    
+    SetTexture("Player", L"sigongjoa.bmp");
+
+    CColliderRect* pRC = AddCollider<CColliderRect>("PlayerBody");
+
+    pRC->SetRect(-50.f, -50.f, 50.f, 50.f);
+    pRC->AddCollisionFunction(CS_ENTER, this, &CPlayer::Hit);
+
+    SAFE_RELEASE(pRC);
+
+
     return true;
 }
 
@@ -26,29 +45,33 @@ void CPlayer::Input(float fDeltaTime)
 {
     CMoveObj::Input(fDeltaTime);
 
-    if (GetAsyncKeyState('W') & 0x8000)
+    if (KEYPRESS("MoveFront"))
     {
         MoveYFromSpeed(fDeltaTime, MD_BACK);
     }
 
-    if (GetAsyncKeyState('A') & 0x8000)
+    if (KEYPRESS("MoveLeft"))
     {
         MoveXFromSpeed(fDeltaTime, MD_BACK);
     }
 
-    if (GetAsyncKeyState('S') & 0x8000)
+    if (KEYPRESS("MoveBack"))
     {
         MoveYFromSpeed(fDeltaTime, MD_FRONT);
     }
 
-    if (GetAsyncKeyState('D') & 0x8000)
+    if (KEYPRESS("MoveRight"))
     {
         MoveXFromSpeed(fDeltaTime, MD_FRONT);
     }
 
-    if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+    if (KEYDOWN("Fire"))
     {
         Fire();
+    }
+    if (KEYDOWN("Skill1"))
+    {
+        MessageBox(NULL, L"Skill1", L"Skill1", MB_OK);
     }
 }
 
@@ -78,9 +101,13 @@ void CPlayer::Collision(float fDeltaTime)
 void CPlayer::Render(HDC hDC, float fDeltaTime)
 {
     CMoveObj::Render(hDC, fDeltaTime);
+    wchar_t strHP[32] = {};
 
+    POSITION tPos = m_tPos - (m_tSize * m_tPivot);
+    tPos -= GET_SINGLE(CCamera)->GetPos();
 
-    Rectangle(hDC, m_tPos.x, m_tPos.y, m_tPos.x + m_tSize.x , m_tPos.y + m_tSize.y);
+    wsprintf(strHP, L"HP: %d ", m_iHP);
+    TextOut(hDC, tPos.x, tPos.y, strHP, lstrlen(strHP));
 }
 
 CPlayer* CPlayer::Clone()
@@ -88,12 +115,23 @@ CPlayer* CPlayer::Clone()
     return new CPlayer(*this);
 }
 
+void CPlayer::Hit(CCollider* pSrc, CCollider* pDest, float fDeltaTime)
+{
+    m_iHP -= 5;
+}
+
 void CPlayer::Fire()
 {
     CObj* pBullet = CObj::CreateCloneObj("Bullet", "PlayerBullet", m_pLayer);
 
-    pBullet->SetPos(m_tPos.x + m_tSize.x,
-        (m_tPos.y + m_tPos.y + m_tSize.y)/2.f - pBullet->GetSize().y/2.f);
+    pBullet->AddCollisionFunction("BulletBody", CS_ENTER, (CBullet*)pBullet, &CBullet::Hit);
+
+    POSITION    tPos;
+    tPos.x = GetRight() + pBullet->GetSize().x * pBullet->GetPivot().x;
+    tPos.y = GetCenter().y;
+
+
+    pBullet->SetPos(tPos);
 
     SAFE_RELEASE(pBullet);
 }

@@ -6,6 +6,9 @@
 #include <vector>
 #include <unordered_map>
 #include <crtdbg.h>
+#include <typeinfo>
+#include <string>
+#include <functional>
 
 using namespace std;
 
@@ -15,7 +18,14 @@ using namespace std;
 #include "Flags.h"
 #include "types.h"
 
+#pragma comment(lib,"msimg32")
+
 #define PI	3.141592f
+
+//Path Key
+
+#define ROOT_PATH		"RootPath"
+#define TEXTURE_PATH	"TexturePath"
 
 template <typename T>
 void Safe_Delete_VecList(T& p)

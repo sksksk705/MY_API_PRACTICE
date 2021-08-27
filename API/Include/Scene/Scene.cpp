@@ -6,8 +6,9 @@ unordered_map<string, CObj*> CScene::m_mapPrototype;
 
 CScene::CScene()
 {
-	CLayer* pLayer = CreateLayer("Default");
+	CLayer* pLayer = CreateLayer("Default",1);
 	pLayer = CreateLayer("UI", INT_MAX);
+	pLayer = CreateLayer("Stage");
 }
 
 CScene::~CScene()
@@ -174,6 +175,7 @@ void CScene::Collision(float fDeltaTime)
 
 void CScene::Render(HDC hDC, float fDeltaTime)
 {
+	
 	list <CLayer*>::iterator iter;
 	list <CLayer*>::iterator iterEnd = m_LayerList.end();
 

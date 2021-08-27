@@ -2,6 +2,8 @@
 #include "../Object/Player.h"
 #include "../Object/Minion.h"
 #include "../Object/Bullet.h"
+#include "../Object/Stage.h"
+#include "../Core/Camera.h"
 #include "Layer.h"
 
 
@@ -22,15 +24,32 @@ bool CIngameScene::Init()
 
 	CPlayer* pPlayer = CObj::CreateObj<CPlayer>("Player", pLayer);
 
+	GET_SINGLE(CCamera)->SetTarget(pPlayer);
+
+	SAFE_RELEASE(pPlayer);
+
 	CMinion* pMinion = CObj::CreateObj<CMinion>("Minion", pLayer);
+
+	SAFE_RELEASE(pMinion);
 
 	CBullet* pBullet = CScene::CreatePrototype<CBullet>("Bullet");
 
 	pBullet->SetSize(50.f, 50.f);
 
-	SAFE_RELEASE(pPlayer);
-	SAFE_RELEASE(pMinion);
 	SAFE_RELEASE(pBullet);
+
+	CLayer* pStageLayer = FindLayer("Stage");
+
+	CStage* pStage = CObj::CreateObj<CStage>("Stage", pStageLayer);
+
+	SAFE_RELEASE(pStage);
+
+
+
+
+
+
+
 
 	return true;
 }
